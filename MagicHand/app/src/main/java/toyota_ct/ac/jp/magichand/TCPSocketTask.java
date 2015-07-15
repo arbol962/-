@@ -1,26 +1,11 @@
 package toyota_ct.ac.jp.magichand;
 
-
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Base64;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -145,35 +130,9 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
                     }
                 }
             }
-
-
-
-            //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
-            //受信したファイルサイズの確認
-            //System.out.println("message Length is" + message.length());
-            //System.out.println(message);
-            //受信データの表示
-            //Logger.debugEntire(message);
-
-            //受信文字列からEOFの削除
-           // message = message.replaceAll("<EOF>", "");
-
-            //受信文字列からBase64デコードで画像へ
-           // Bitmap recievedBmp = this.decodeBase64(message);
-
-            //デコードした画像をUIImageViewに反映
-            //ImageView image = (ImageView) findViewById(R.id.imageView);
-            //image.setImageBitmap(recievedBmp);
-
             pw.close();
             socket.close();
-
             return "DONE";
-
-
-
-
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -248,9 +207,6 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
                     break;
                 }
             }
-            //line=reader.readLine();
-            //record.append(line);        //受信文字列に一行ずつ追加していく
-            //System.out.println(line);   //デバッグ用に表示
 
             br.close();
 
@@ -259,12 +215,6 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
 
             //ここで解析、イベント実行→return true;
             if(message.startsWith("1 started")) {
-
-
-                //文頭語解析
-                //String SendToServer = "0";
-                //String RECEIVE = "1";
-
 
                 if(message.startsWith("send 2 1")){ //クライアントからサーバーへ送る指令ならば
 
@@ -323,11 +273,8 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
         immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
 
-        //String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
         String imageEncoded = android.util.Base64.encodeToString(b,android.util.Base64.URL_SAFE);
 
-        //imageEncoded= imageEncoded.replace(System.getProperty("line.separator"), "");
-        //Logger.debugEntire(imageEncoded);
         return imageEncoded;
     }
     /**
