@@ -1,10 +1,12 @@
 package toyota_ct.ac.jp.magichand;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -18,6 +20,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TCPSocketTask.java
@@ -98,7 +101,6 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
             //新規ソケット接続の開始
             socket = new Socket(getAddress(), getPort());
             socket.setTcpNoDelay(true);
-            //System.out.println("BUFFER SIZE :"+socket.getSendBufferSize());
 
             //PrintWriterを使ったソケット書き込み
             PrintWriter pw = new PrintWriter(socket.getOutputStream(),true);
@@ -107,7 +109,6 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
 
             //送信したデータのサイズ確認
             System.out.println("送信に使うデータの長さは：" + sendStr.length());
-            //System.out.println(sendTxt);
 
             BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream(),10240);
             bos.write(sendStr.getBytes());
@@ -212,6 +213,11 @@ public class TCPSocketTask extends AsyncTask<String, Integer, String> {
 
             //処理用にmessageという文字列を生成
             String message = new String(record);
+            if (message.startsWith("SHELL")){
+                //ここでVRに階層構造を渡す処理
+                FileReference List = new FileReference();
+                List.GetFileList();
+            }
 
             //ここで解析、イベント実行→return true;
             if(message.startsWith("1 started")) {

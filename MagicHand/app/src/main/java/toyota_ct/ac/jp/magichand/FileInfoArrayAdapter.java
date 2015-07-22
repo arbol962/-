@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class FileInfoArrayAdapter extends ArrayAdapter<FileInfo>
 {
-    private List<FileInfo>	m_listFileInfo; // ファイル情報リスト
+    public List<FileInfo>	m_listFileInfo; // ファイル情報リスト
 
     // コンストラクタ
     public FileInfoArrayAdapter(	Context context,

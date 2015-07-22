@@ -123,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText( this, "File Selected : " + file.getPath(), Toast.LENGTH_SHORT ).show();
                 // 選択ファイルを設定
                 ((TextView)findViewById(R.id.text)).setText(file.getPath() + file.getName());
-                // 変更するための支持を表示
-                //((TextView)findViewById(R.id.textView)).setText("変更するにはメニューボタン_ _ _ _↑");
                 ((TextView)findViewById(R.id.textView2)).setText("　　　が選択されています。");
                 imgBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 ((ImageView)findViewById(R.id.imageView)).setImageBitmap(imgBitmap);
